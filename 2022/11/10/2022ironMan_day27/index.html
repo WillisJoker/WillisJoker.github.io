@@ -1,0 +1,192 @@
+<!DOCTYPE html><html lang="zh-TW" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>2022-鐵人賽 後端幼幼班Day27 MySQL篇 資料篩選 | WillisのBlog</title><meta name="keywords" content="MySQL"><meta name="author" content="Willis"><meta name="copyright" content="Willis"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Hello ! 大家好 ~ 我是 Willis，之前把 MySQL 的存入、讀取、更新、刪除都講完了，今天我們來講一下資料篩選吧 ! (☄◣ω◢)☄ 資料篩選篩選方式其實就是在 WHERE 後面加一些條件，幫你過濾出你想要的資料。  在資料篩選之前我們先把我們球員表格再增加多一點資料進去吧。球員基本上都是我亂找的，如果有喜歡的球員沒在上面別找我 XD  比較篩選 &#x3D; (等於)  SELE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2022-鐵人賽 後端幼幼班Day27 MySQL篇 資料篩選">
+<meta property="og:url" content="http://example.com/2022/11/10/2022ironMan_day27/index.html">
+<meta property="og:site_name" content="WillisのBlog">
+<meta property="og:description" content="Hello ! 大家好 ~ 我是 Willis，之前把 MySQL 的存入、讀取、更新、刪除都講完了，今天我們來講一下資料篩選吧 ! (☄◣ω◢)☄ 資料篩選篩選方式其實就是在 WHERE 後面加一些條件，幫你過濾出你想要的資料。  在資料篩選之前我們先把我們球員表格再增加多一點資料進去吧。球員基本上都是我亂找的，如果有喜歡的球員沒在上面別找我 XD  比較篩選 &#x3D; (等於)  SELE">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="http://example.com/img/10.jpg">
+<meta property="article:published_time" content="2022-11-09T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-05T04:41:31.341Z">
+<meta property="article:author" content="Willis">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/10.jpg"><link rel="shortcut icon" href="/img/01.jpg"><link rel="canonical" href="http://example.com/2022/11/10/2022ironMan_day27/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":false},
+  copy: {
+    success: '複製成功',
+    error: '複製錯誤',
+    noSupport: '瀏覽器不支援'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '剛剛',
+    min: '分鐘前',
+    hour: '小時前',
+    day: '天前',
+    month: '個月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '2022-鐵人賽 後端幼幼班Day27 MySQL篇 資料篩選',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-05 12:41:31'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/01.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a><a href="/tags/"><div class="headline">標籤</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分類</div><div class="length-num">1</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 時間軸</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友鏈</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 關於我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/10.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">WillisのBlog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 時間軸</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分類</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友鏈</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 關於我</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">2022-鐵人賽 後端幼幼班Day27 MySQL篇 資料篩選</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">發表於</span><time class="post-meta-date-created" datetime="2022-11-09T16:00:00.000Z" title="發表於 2022-11-10 00:00:00">2022-11-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新於</span><time class="post-meta-date-updated" datetime="2023-03-05T04:41:31.341Z" title="更新於 2023-03-05 12:41:31">2023-03-05</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/2022-%E9%90%B5%E4%BA%BA%E8%B3%BD/">2022-鐵人賽</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字數總計:</span><span class="word-count">423</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">閱讀時長:</span><span>1分鐘</span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><strong>Hello ! 大家好 ~ 我是 Willis，之前把 MySQL 的存入、讀取、更新、刪除都講完了，今天我們來講一下資料篩選吧 ! (☄◣ω◢)☄</strong></p>
+<h2 id="資料篩選"><a href="#資料篩選" class="headerlink" title="資料篩選"></a>資料篩選</h2><p><strong>篩選方式其實就是在 WHERE 後面加一些條件，幫你過濾出你想要的資料。</strong></p>
+<ul>
+<li><strong>在資料篩選之前我們先把我們球員表格再增加多一點資料進去吧。</strong><br><img src="https://i.imgur.com/fvabl6F.png"><br><strong>球員基本上都是我亂找的，如果有喜歡的球員沒在上面別找我 XD</strong></li>
+</ul>
+<h3 id="比較篩選"><a href="#比較篩選" class="headerlink" title="比較篩選"></a>比較篩選</h3><ul>
+<li><h4 id="x3D-等於"><a href="#x3D-等於" class="headerlink" title="&#x3D; (等於)"></a>&#x3D; (等於)</h4></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SELECT * FROM `表格名稱` WHERE `資料名稱`=內容;</span><br></pre></td></tr></table></figure>
+
+<p><strong>等於在之前其實就講過了，可以幫你篩選出等於該數值的資料。</strong></p>
+<ul>
+<li><p><strong>過濾出球員位置為 PF 的球員</strong><br><img src="https://i.imgur.com/B55k0Oe.png"></p>
+</li>
+<li><h4 id="gt-大於-、-lt-小於-、-gt-x3D-大於等於-、-lt-x3D-小於等於"><a href="#gt-大於-、-lt-小於-、-gt-x3D-大於等於-、-lt-x3D-小於等於" class="headerlink" title="&gt; (大於) 、 &lt; (小於) 、 &gt;&#x3D;(大於等於) 、&lt;&#x3D;(小於等於)"></a>&gt; (大於) 、 &lt; (小於) 、 &gt;&#x3D;(大於等於) 、&lt;&#x3D;(小於等於)</h4></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SELECT * FROM `表格名稱` WHERE `資料名稱`&gt;內容;</span><br><span class="line">SELECT * FROM `表格名稱` WHERE `資料名稱`&lt;內容;</span><br><span class="line">SELECT * FROM `表格名稱` WHERE `資料名稱`&gt;=內容;</span><br><span class="line">SELECT * FROM `表格名稱` WHERE `資料名稱`&lt;=內容;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>過濾出球員背號大於 20 的球員</strong><br><img src="https://i.imgur.com/C5h2iVe.png"></p>
+</li>
+<li><h4 id="x3D-不等於"><a href="#x3D-不等於" class="headerlink" title="!&#x3D; (不等於)"></a>!&#x3D; (不等於)</h4></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SELECT * FROM `表格名稱` WHERE `資料名稱`!=內容;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>過濾出球員位置不是 PF 的球員</strong><br><img src="https://i.imgur.com/sOLnqNw.png"></li>
+</ul>
+<h3 id="邏輯篩選"><a href="#邏輯篩選" class="headerlink" title="邏輯篩選"></a>邏輯篩選</h3><p><strong>還記得之前 Python 基本語法的邏輯運算嗎 ? 邏輯其實一樣，我就不多做解釋了。</strong></p>
+<ul>
+<li><h4 id="AND-及"><a href="#AND-及" class="headerlink" title="AND(及)"></a>AND(及)</h4></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SELECT * FROM `表格名稱` WHERE ... AND ...;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>過濾出球員位置是 PF 及背號大於 5 的球員</strong><br><img src="https://i.imgur.com/QU5oURQ.png"></p>
+</li>
+<li><h4 id="OR-或"><a href="#OR-或" class="headerlink" title="OR(或)"></a>OR(或)</h4></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SELECT * FROM `表格名稱` WHERE ... OR ...;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>過濾出球員位置不是 PF 或背號大於 30 的球員</strong></li>
+</ul>
+<p><img src="https://i.imgur.com/mGrEcCh.png"></p>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><p><a target="_blank" rel="noopener" href="https://www.runoob.com/mysql/mysql-tutorial.html">https://www.runoob.com/mysql/mysql-tutorial.html</a></p>
+<h2 id="結尾"><a href="#結尾" class="headerlink" title="結尾"></a>結尾</h2><p><strong>那資料篩選的介紹就到這裡囉，下次見 ! 掰掰 ~ (╯•̀ὤ•́)╯</strong></p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/MySQL/">MySQL</a></div><div class="post_share"></div></div><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相關推薦</span></div><div class="relatedPosts-list"><div><a href="/2022/11/04/2022ironMan_day21/" title="2022-鐵人賽 後端幼幼班Day21 MySQL篇 資料庫介紹與安裝"><img class="cover" src="/img/10.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-04</div><div class="title">2022-鐵人賽 後端幼幼班Day21 MySQL篇 資料庫介紹與安裝</div></div></a></div><div><a href="/2022/11/05/2022ironMan_day22/" title="2022-鐵人賽 後端幼幼班Day22 MySQL篇 資料庫基礎操作"><img class="cover" src="/img/10.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-05</div><div class="title">2022-鐵人賽 後端幼幼班Day22 MySQL篇 資料庫基礎操作</div></div></a></div><div><a href="/2022/11/06/2022ironMan_day23/" title="2022-鐵人賽 後端幼幼班Day23 MySQL篇 MySQL常用型別與表格資料"><img class="cover" src="/img/10.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-06</div><div class="title">2022-鐵人賽 後端幼幼班Day23 MySQL篇 MySQL常用型別與表格資料</div></div></a></div><div><a href="/2022/11/07/2022ironMan_day24/" title="2022-鐵人賽 後端幼幼班Day24 MySQL篇 資料存入與讀取"><img class="cover" src="/img/10.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-07</div><div class="title">2022-鐵人賽 後端幼幼班Day24 MySQL篇 資料存入與讀取</div></div></a></div><div><a href="/2022/11/08/2022ironMan_day25/" title="2022-鐵人賽 後端幼幼班Day25 MySQL篇 資料更新"><img class="cover" src="/img/10.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-08</div><div class="title">2022-鐵人賽 後端幼幼班Day25 MySQL篇 資料更新</div></div></a></div><div><a href="/2022/11/09/2022ironMan_day26/" title="2022-鐵人賽 後端幼幼班Day26 MySQL篇 資料刪除"><img class="cover" src="/img/10.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-11-09</div><div class="title">2022-鐵人賽 後端幼幼班Day26 MySQL篇 資料刪除</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/01.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Willis</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a><a href="/tags/"><div class="headline">標籤</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分類</div><div class="length-num">1</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/WillisJoker" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/will901024@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">WillisのBlog上線啦</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目錄</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B3%87%E6%96%99%E7%AF%A9%E9%81%B8"><span class="toc-number">1.</span> <span class="toc-text">資料篩選</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AF%94%E8%BC%83%E7%AF%A9%E9%81%B8"><span class="toc-number">1.1.</span> <span class="toc-text">比較篩選</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#x3D-%E7%AD%89%E6%96%BC"><span class="toc-number">1.1.1.</span> <span class="toc-text">&#x3D; (等於)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gt-%E5%A4%A7%E6%96%BC-%E3%80%81-lt-%E5%B0%8F%E6%96%BC-%E3%80%81-gt-x3D-%E5%A4%A7%E6%96%BC%E7%AD%89%E6%96%BC-%E3%80%81-lt-x3D-%E5%B0%8F%E6%96%BC%E7%AD%89%E6%96%BC"><span class="toc-number">1.1.2.</span> <span class="toc-text">&gt; (大於) 、 &lt; (小於) 、 &gt;&#x3D;(大於等於) 、&lt;&#x3D;(小於等於)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#x3D-%E4%B8%8D%E7%AD%89%E6%96%BC"><span class="toc-number">1.1.3.</span> <span class="toc-text">!&#x3D; (不等於)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%82%8F%E8%BC%AF%E7%AF%A9%E9%81%B8"><span class="toc-number">1.2.</span> <span class="toc-text">邏輯篩選</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#AND-%E5%8F%8A"><span class="toc-number">1.2.1.</span> <span class="toc-text">AND(及)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#OR-%E6%88%96"><span class="toc-number">1.2.2.</span> <span class="toc-text">OR(或)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">2.</span> <span class="toc-text">參考資料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B5%90%E5%B0%BE"><span class="toc-number">3.</span> <span class="toc-text">結尾</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/11/13/2022ironMan_day30/" title="2022-鐵人賽 後端幼幼班Day30 廢文篇 參賽感想與心得"><img src="/img/10.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2022-鐵人賽 後端幼幼班Day30 廢文篇 參賽感想與心得"/></a><div class="content"><a class="title" href="/2022/11/13/2022ironMan_day30/" title="2022-鐵人賽 後端幼幼班Day30 廢文篇 參賽感想與心得">2022-鐵人賽 後端幼幼班Day30 廢文篇 參賽感想與心得</a><time datetime="2022-11-12T16:00:00.000Z" title="發表於 2022-11-13 00:00:00">2022-11-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/12/2022ironMan_day29/" title="2022-鐵人賽 後端幼幼班Day29 MySQL篇 與Python連結"><img src="/img/10.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2022-鐵人賽 後端幼幼班Day29 MySQL篇 與Python連結"/></a><div class="content"><a class="title" href="/2022/11/12/2022ironMan_day29/" title="2022-鐵人賽 後端幼幼班Day29 MySQL篇 與Python連結">2022-鐵人賽 後端幼幼班Day29 MySQL篇 與Python連結</a><time datetime="2022-11-11T16:00:00.000Z" title="發表於 2022-11-12 00:00:00">2022-11-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/11/2022ironMan_day28/" title="2022-鐵人賽 後端幼幼班Day28 MySQL篇 資料限制"><img src="/img/10.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2022-鐵人賽 後端幼幼班Day28 MySQL篇 資料限制"/></a><div class="content"><a class="title" href="/2022/11/11/2022ironMan_day28/" title="2022-鐵人賽 後端幼幼班Day28 MySQL篇 資料限制">2022-鐵人賽 後端幼幼班Day28 MySQL篇 資料限制</a><time datetime="2022-11-10T16:00:00.000Z" title="發表於 2022-11-11 00:00:00">2022-11-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/10/2022ironMan_day27/" title="2022-鐵人賽 後端幼幼班Day27 MySQL篇 資料篩選"><img src="/img/10.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2022-鐵人賽 後端幼幼班Day27 MySQL篇 資料篩選"/></a><div class="content"><a class="title" href="/2022/11/10/2022ironMan_day27/" title="2022-鐵人賽 後端幼幼班Day27 MySQL篇 資料篩選">2022-鐵人賽 後端幼幼班Day27 MySQL篇 資料篩選</a><time datetime="2022-11-09T16:00:00.000Z" title="發表於 2022-11-10 00:00:00">2022-11-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/11/09/2022ironMan_day26/" title="2022-鐵人賽 後端幼幼班Day26 MySQL篇 資料刪除"><img src="/img/10.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2022-鐵人賽 後端幼幼班Day26 MySQL篇 資料刪除"/></a><div class="content"><a class="title" href="/2022/11/09/2022ironMan_day26/" title="2022-鐵人賽 後端幼幼班Day26 MySQL篇 資料刪除">2022-鐵人賽 後端幼幼班Day26 MySQL篇 資料刪除</a><time datetime="2022-11-08T16:00:00.000Z" title="發表於 2022-11-09 00:00:00">2022-11-09</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/10.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By Willis</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主題 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="閱讀模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="淺色和深色模式轉換"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="單欄和雙欄切換"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="設定"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目錄"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到頂部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
